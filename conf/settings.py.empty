@@ -1,0 +1,60 @@
+import os,sys
+BASEDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASEDIR)
+
+
+#wazuh infomation#
+wazuh_api_ip = '1'
+wazuh_api_port = '55000'
+wazuh_api_user = 'wazuh'
+wazuh_api_pswd = 'wazuh'
+wazuh_api_addr = 'https://%s:%s'%(wazuh_api_ip,wazuh_api_port)
+#api mappings
+wazuh_gettoken_api = '/security/user/authenticate'
+wazuh_agents_api = '/agents'
+
+
+#cmdb infomation#
+cmdb_token = ''
+cmdb_get_server_url = ''
+
+#remote execute infomation#
+execute_token = ''
+execute_url = ''
+echo_excute_url = ''
+post_params = ''
+
+
+#mail server infomation#
+smtp_info = {
+    "smtp_user": "",
+    "smtp_passwd": "",
+    "smtp_server": "",
+    "smtp_port": 587,
+    "src_address": ""
+}
+
+RECEIVERS = ['']
+
+
+#slack info#
+slack_token = ''
+slack_channel = ''
+
+
+##path##
+ConfDir = os.path.join(BASEDIR,'conf')
+LogDir = os.path.join(BASEDIR,'logs')
+CacheDir = os.path.join(BASEDIR,'cache')
+
+white_list = os.path.join(ConfDir,'whitelist.json')
+cmdb_cache = os.path.join(CacheDir,'CmdbCache.json')
+agents_cache = os.path.join(CacheDir,'AgentsCache.json')
+
+install_task_status = os.path.join(CacheDir,'InstallTaskStatus.json')
+
+##logs info##
+log_file_name = 'WAgentsRegister_'+'.log'
+log_file = os.path.join(LogDir,log_file_name)
+logger = log.Log("WAgentsRegister", console=1, logfile=log_file, show_details=True)
+logger.set_debug_level()
