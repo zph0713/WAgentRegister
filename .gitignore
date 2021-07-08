@@ -3,3 +3,4 @@
 *.json
 conf/settings.py
 *.log
+*.html
