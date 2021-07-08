@@ -14,6 +14,7 @@ from core.analysislogic import WAgentsAnalysis
 
 class MailProcess(object):
     def __init__(self,cloud_filter):
+        self.cloud_vendor = cloud_filter
         self.WAA = WAgentsAnalysis(cloud_filter)
 
     def generator_attachment(self,filename,data):
@@ -29,15 +30,15 @@ class MailProcess(object):
 
     def prepare_mail_content(self,need_active):
         if need_active == 'lost_agents':
-            mail_subject = '[WazuhAgentsRegister]Agents Disconnected'
+            mail_subject = '[WazuhAgentsRegister][{}]Agents Disconnected'.format(self.cloud_vendor)
             mail_body = 'Wazuh disconnected machines: {}'.format(len(self.WAA.need_alert_info))
             mail_att = self.generator_attachment(need_active,self.WAA.need_alert_info)
         elif need_active == 'down_agents':
-            mail_subject = '[WazuhAgentsRegister]VMs Server has offline'
+            mail_subject = '[WazuhAgentsRegister][{}]VMs Server has offline'.format(self.cloud_vendor)
             mail_body = 'CMDB shutdown machines: {}'.format(len(self.WAA.need_remove_info))
             mail_att = self.generator_attachment(need_active,self.WAA.need_remove_info)
         elif need_active == 'to_add':
-            mail_subject = '[WazuhAgentsRegister]Need Register VMs'
+            mail_subject = '[WazuhAgentsRegister][{}]Need Register VMs'.format(self.cloud_vendor)
             mail_body = 'The number of new installations currently required: {}'.format(len(self.WAA.need_addagents_info))
             mail_att = self.generator_attachment(need_active,self.WAA.need_addagents_info)
         else:
